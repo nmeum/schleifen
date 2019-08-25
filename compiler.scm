@@ -13,7 +13,7 @@
     (newline)))
 
 (define (compile-program)
-  (let ((prog (parse parse-commands (current-input-port))))
+  (let ((prog (parse parse-program (current-input-port))))
     (if prog
         (for-each compile-component prog)
         (die "input program is invalid"))))

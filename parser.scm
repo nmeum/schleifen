@@ -56,10 +56,14 @@
 
 (define parse-commands
   (sequence* ((_    parse-spaces)
-              (prog (zero-or-more (parse-command)))
-              (_    parse-spaces)
-              (_    end-of-input))
-    (result prog)))
+              (cmds (zero-or-more (parse-command)))
+              (_    parse-spaces))
+    (result cmds)))
 
 (define parse-loop-body
   (enclosed-by (parse-string "DO") parse-commands (parse-string "DONE")))
+
+(define parse-program
+  (sequence* ((prog parse-commands)
+              (_    end-of-input))
+    (result prog)))
