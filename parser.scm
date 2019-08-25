@@ -1,7 +1,7 @@
 (require-extension comparse)
 
 (define parse-spaces
-  (zero-or-more (in #\newline #\ )))
+  (zero-or-more (in #\newline #\tab #\ )))
 
 (define (parse-string str)
   (sequence* ((_ parse-spaces)
