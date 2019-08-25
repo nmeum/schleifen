@@ -55,7 +55,11 @@
         (lambda (s) (result (car s)))))
 
 (define parse-commands
-  (zero-or-more (parse-command)))
+  (sequence* ((_    parse-spaces)
+              (prog (zero-or-more (parse-command)))
+              (_    parse-spaces)
+              (_    end-of-input))
+    (result prog)))
 
 (define parse-loop-body
   (enclosed-by (parse-string "DO") parse-commands (parse-string "DONE")))
