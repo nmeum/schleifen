@@ -17,3 +17,7 @@
     (if prog
         (for-each compile-component prog)
         (die "input program is invalid"))))
+
+(cond-expand
+  ((or chicken-script compiling) (compile-program))
+  (else #t))
