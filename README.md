@@ -20,8 +20,7 @@ The following EBNF describes valid input:
 	           { variable_start | digit };
 
 	literal = digit;
-	operator = "+" | "-";
-	expression = value, operator, value;
+	expression = value, ( "+" | "-" ), value;
 	value = expression | variable | literal;
 
 	command = variable, ":=", value, operator
