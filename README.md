@@ -16,8 +16,7 @@ Just a toy program for playing around with chicken scheme.
 The following EBNF describes valid input:
 
 	variable_start = letter | "_";
-	variable = variable_start, { variable_start },
-	           { variable_start | digit };
+	variable = variable_start, { variable_start | digit };
 
 	literal = digit;
 	expression = value, ( "+" | "-" ), value;
