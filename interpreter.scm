@@ -71,12 +71,12 @@
 (define (eval-commands env cmds)
   (fold eval-command env cmds))
 
-(define (compile-program)
+(define (eval-program)
   (let ((prog (parse parse-program (current-input-port))))
     (if prog
         (eval-commands '() prog)
         (die "input program is invalid"))))
 
 (cond-expand
-  ((or chicken-script compiling) (compile-program))
+  ((or chicken-script compiling) (eval-program))
   (else #t))
