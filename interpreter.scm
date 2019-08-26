@@ -54,7 +54,7 @@
   (add-assoc env (cons (variable-name lvalue)
                        (eval-rvalue env rvalue))))
 
-(define (eval-command env comp)
+(define (eval-command comp env)
   (let ((kind (car comp)) (args (cdr comp)))
     (cond ((eq? kind 'loop)
            (eval-loop env (first args) (second args)))
