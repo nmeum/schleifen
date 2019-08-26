@@ -77,6 +77,18 @@
         (eval-commands '() prog)
         (die "input program is invalid"))))
 
+(define (dump-variable var seen)
+  (if (member (car var) seen)
+      seen
+      (begin
+        (display (car var)) (display ": ")
+        (display (cdr var)) (newline)
+        (append (list (car var)) seen))))
+
+(define (main)
+  (let ((vars (eval-program)))
+    (fold dump-variable '() vars)))
+
 (cond-expand
-  ((or chicken-script compiling) (eval-program))
+  ((or chicken-script compiling) (main))
   (else #t))
