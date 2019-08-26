@@ -33,7 +33,8 @@
   (any-of parse-variable parse-literal))
 
 (define parse-expression
-  (sequence parse-primitive parse-operation parse-primitive))
+  (bind (sequence parse-primitive parse-operation parse-primitive)
+        (lambda (s) (result (cons 'expr s)))))
 
 (define parse-value
   (any-of parse-expression parse-primitive))
