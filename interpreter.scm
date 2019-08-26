@@ -10,10 +10,6 @@
 (define (add-assoc assoc item)
   (append (list item) assoc))
 
-(define (eval-loop env cond body)
-  (error "not implemented")
-  env)
-
 (define (variable-name lvalue)
   (assert (eq? (car lvalue) 'var))
   (cdr lvalue))
@@ -54,6 +50,16 @@
   (add-assoc env (cons (variable-name lvalue)
                        (eval-rvalue env rvalue))))
 
+(define (ntimes n fn arg)
+  (if (> n 0)
+      (ntimes (- n 1) fn (fn arg))
+      arg))
+
+(define (eval-loop env cond body)
+  (let ((amount (eval-rvalue env cond)))
+    (ntimes amount (lambda (env)
+                     (eval-commands env body)) env)))
+
 (define (eval-command comp env)
   (let ((kind (car comp)) (args (cdr comp)))
     (cond ((eq? kind 'loop)
@@ -62,10 +68,13 @@
            (eval-assign env (first args) (second args)))
           (else (error "invalid command")))))
 
+(define (eval-commands env cmds)
+  (fold eval-command env cmds))
+
 (define (compile-program)
   (let ((prog (parse parse-program (current-input-port))))
     (if prog
-        (fold eval-command '() prog)
+        (eval-commands '() prog)
         (die "input program is invalid"))))
 
 (cond-expand
