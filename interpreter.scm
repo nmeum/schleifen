@@ -10,6 +10,11 @@
 (define (add-assoc assoc item)
   (append (list item) assoc))
 
+(define (ntimes n fn arg)
+  (if (> n 0)
+      (ntimes (- n 1) fn (fn arg))
+      arg))
+
 (define (variable-name lvalue)
   (assert (eq? (car lvalue) 'var))
   (cdr lvalue))
@@ -49,11 +54,6 @@
 (define (eval-assign env lvalue rvalue)
   (add-assoc env (cons (variable-name lvalue)
                        (eval-rvalue env rvalue))))
-
-(define (ntimes n fn arg)
-  (if (> n 0)
-      (ntimes (- n 1) fn (fn arg))
-      arg))
 
 (define (eval-loop env cond body)
   (let ((amount (eval-rvalue env cond)))
