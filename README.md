@@ -19,8 +19,9 @@ The following EBNF describes valid input:
 	variable = variable_start, { variable_start | digit };
 
 	literal = digit;
-	expression = value, ( "+" | "-" ), value;
-	value = expression | variable | literal;
+	primitive_value = literal | variable;
+	expression = primitive_value, ( "+" | "-" ), primitive_value;
+	value = primitive_value | expression;
 
 	command = variable, ":=", value, operator
 	        | "LOOP", value, "DO" commands, "DONE";
