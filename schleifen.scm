@@ -23,7 +23,7 @@
   (let ((kv (irregex-split (irregex "=") str)))
     (if (= (length kv) 2)
         (cons (first kv) (string->number (second kv)))
-        #f)))
+        (die (string-append "invalid assignment: " str)))))
 
 (define (initial-variables)
   (let ((args (argv)))
