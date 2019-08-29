@@ -68,3 +68,7 @@
   (sequence* ((prog parse-commands)
               (_    end-of-input))
     (result prog)))
+
+(define (parse-loop-prog input)
+  (let ((prog (parse parse-program input)))
+    (if prog prog #f)))

@@ -1,11 +1,4 @@
-(require-extension comparse srfi-1)
-(load "parser.scm")
-
-(define (die msg)
-  (let ((port (current-error-port)))
-    (display msg port)
-    (newline port)
-    (exit 1)))
+(require-extension srfi-1)
 
 (define (add-assoc assoc item)
   (append (list item) assoc))
@@ -59,7 +52,7 @@
 (define (eval-loop env cond body)
   (let ((amount (eval-rvalue env cond)))
     (ntimes amount (lambda (env)
-                     (eval-commands env body)) env)))
+                     (eval-loop-prog env body)) env)))
 
 (define (eval-command comp env)
   (let ((kind (car comp)) (args (cdr comp)))
@@ -69,27 +62,5 @@
            (eval-assign env (first args) (second args)))
           (else (error "invalid command")))))
 
-(define (eval-commands env cmds)
-  (fold eval-command env cmds))
-
-(define (eval-program)
-  (let ((prog (parse parse-program (current-input-port))))
-    (if prog
-        (eval-commands '() prog)
-        (die "input program is invalid"))))
-
-(define (dump-variable var seen)
-  (if (member (car var) seen)
-      seen
-      (begin
-        (display (car var)) (display ": ")
-        (display (cdr var)) (newline)
-        (append (list (car var)) seen))))
-
-(define (main)
-  (let ((vars (eval-program)))
-    (fold dump-variable '() vars)))
-
-(cond-expand
-  ((or chicken-script compiling) (main))
-  (else #t))
+(define (eval-loop-prog env prog)
+  (fold eval-command env prog))

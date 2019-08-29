@@ -2,4 +2,4 @@
  (author "Sören Tempel")
  (license "GPL-3")
  (dependencies comparse srfi-1)
- (components (program interpreter)))
+ (components (program schleifen)))
