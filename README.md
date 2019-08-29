@@ -9,7 +9,7 @@ Just a toy program for playing around with chicken scheme.
 # Usage
 
 	$ chicken-install -n
-	$ ./schleifen < examples/copy.loop
+	$ ./schleifen op1=40 op2=2 < examples/addition.loop
 
 # Syntax
 

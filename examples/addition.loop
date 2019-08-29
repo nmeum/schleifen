@@ -1,0 +1,4 @@
+sum := op1;
+LOOP op2 DO
+	sum := sum + 1;
+DONE;
