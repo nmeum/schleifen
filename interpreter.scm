@@ -1,7 +1,7 @@
 (require-extension srfi-1)
 
 (define (add-assoc assoc item)
-  (append (list item) assoc))
+  (cons item assoc))
 
 (define (ntimes n fn arg)
   (if (> n 0)
