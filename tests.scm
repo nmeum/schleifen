@@ -43,5 +43,23 @@
         (parse-loop-prog "x := 1; x := 2;")))
 
 (test-group "interpreter"
+  (test "variable assignment with literal"
+        '(("a" . 1)) (interpret "a := 1;"))
+
   (test "variable assignment with variable"
-        '(("y" . 42) ("x" . 42)) (interpret "y := x;" '(("x" . 42)))))
+        '(("y" . 42) ("x" . 42)) (interpret "y := x;" '(("x" . 42))))
+
+  (test "variable assignment with expression"
+        '(("x" . 2)) (interpret "x := 1 + 1;"))
+
+  (test "variable default values"
+        '(("x" . 1)) (interpret "x := y + 1;"))
+
+  (test "loop with literal condition"
+        '(("x" . 3)) (interpret "LOOP 3 DO x := x + 1; DONE;"))
+
+  (test "loop with condition modification"
+        '(("z". 2)) (interpret "LOOP z DO z := z + 1; DONE;" '(("z" . 1))))
+
+  (test "loop with false condition"
+        '() (interpret "LOOP 0 DO x := 42; DONE;")))
