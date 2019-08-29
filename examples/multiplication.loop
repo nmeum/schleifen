@@ -1,0 +1,3 @@
+LOOP op1 DO
+	result := result + op2;
+DONE;
