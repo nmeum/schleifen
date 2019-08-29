@@ -1,0 +1,5 @@
+((synopsis "Interpreter for the LOOP programming language")
+ (author "Sören Tempel")
+ (license "GPL-3")
+ (dependencies comparse srfi-1)
+ (components (program interpreter)))

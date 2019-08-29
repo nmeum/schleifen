@@ -8,7 +8,7 @@ Just a toy program for playing around with chicken scheme.
 
 # Usage
 
-	$ csc interpreter.scm
+	$ chicken-install -n
 	$ ./interpreter < examples/copy.loop
 
 # Syntax
