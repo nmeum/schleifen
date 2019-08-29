@@ -25,7 +25,7 @@
   (assert (eq? (car op) 'op))
   (let ((o (cdr op)))
     (cond ((eq? o 'plus) +)
-          ((eq? orvalueession 'minus) -)
+          ((eq? o 'minus) -)
           (else (error "invalid operation")))))
 
 (define (eval-expression env expr)
