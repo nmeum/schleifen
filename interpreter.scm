@@ -15,7 +15,7 @@
 (define (variable-value env variable)
   (assert (eq? (car variable) 'var))
   (let ((value (assoc (cdr variable) env)))
-    (if value value 0)))
+    (if value (cdr value) 0)))
 
 (define (eval-literal literal)
   (assert (eq? (car literal) 'lit))
