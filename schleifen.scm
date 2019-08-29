@@ -1,3 +1,7 @@
+(import (chicken irregex)
+        (chicken process-context)
+        srfi-1)
+
 (include "parser.scm")
 (include "interpreter.scm")
 
@@ -15,10 +19,22 @@
         (display (cdr var)) (newline)
         (append (list (car var)) seen))))
 
+(define (string->variable str)
+  (let ((kv (irregex-split (irregex "=") str)))
+    (if (= (length kv) 2)
+        (cons (first kv) (string->number (second kv)))
+        #f)))
+
+(define (initial-variables)
+  (let ((args (argv)))
+    (if (> (length args) 1)
+        (map string->variable (cdr args))
+        '())))
+
 (define (main)
   (let ((prog (parse-loop-prog (current-input-port))))
     (if prog
-        (let ((vars (eval-loop-prog '() prog)))
+        (let ((vars (eval-loop-prog (initial-variables) prog)))
           (fold dump-variable '() vars))
         (die "input program is invalid"))))
 
