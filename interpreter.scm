@@ -52,7 +52,7 @@
 
 (define (eval-assign env lvalue rvalue)
   (set-variable env (cons (variable-name lvalue)
-                       (eval-rvalue env rvalue))))
+                          (eval-rvalue env rvalue))))
 
 (define (eval-loop env cond body)
   (let ((amount (eval-rvalue env cond)))
