@@ -1,7 +1,12 @@
 (require-extension srfi-1)
 
-(define (add-assoc assoc item)
-  (cons item assoc))
+(define (set-variable env variable)
+  (let ((pair (assoc (car variable) env)))
+    (if pair
+        (begin
+          (set-cdr! pair (cdr variable))
+          env)
+        (cons variable env))))
 
 (define (ntimes n fn arg)
   (if (> n 0)
@@ -46,7 +51,7 @@
           (else (display kind) (newline) (error "invalid rvalue")))))
 
 (define (eval-assign env lvalue rvalue)
-  (add-assoc env (cons (variable-name lvalue)
+  (set-variable env (cons (variable-name lvalue)
                        (eval-rvalue env rvalue))))
 
 (define (eval-loop env cond body)
