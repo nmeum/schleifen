@@ -11,13 +11,9 @@
     (newline port)
     (exit 1)))
 
-(define (dump-variable var seen)
-  (if (member (car var) seen)
-      seen
-      (begin
-        (display (car var)) (display ": ")
-        (display (cdr var)) (newline)
-        (append (list (car var)) seen))))
+(define (dump-variable var)
+  (display (car var)) (display ": ")
+  (display (cdr var)) (newline))
 
 (define (string->variable str)
   (let ((kv (irregex-split (irregex "=") str)))
@@ -35,7 +31,7 @@
   (let ((prog (parse-loop-prog (current-input-port))))
     (if prog
         (let ((vars (eval-loop-prog (initial-variables) prog)))
-          (fold dump-variable '() vars))
+          (for-each dump-variable vars))
         (die "input program is invalid"))))
 
 (cond-expand
