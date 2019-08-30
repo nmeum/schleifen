@@ -1,6 +1,6 @@
 # schleifen
 
-An interpreter for [loop programs][loop wikipedia] in [chicken scheme][call-cc].
+An interpreter for [LOOP programs][loop wikipedia] in [chicken scheme][call-cc].
 
 # Status
 
