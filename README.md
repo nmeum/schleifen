@@ -1,4 +1,4 @@
-# schleifen-ausführer
+# schleifen
 
 An interpreter for [loop programs][loop wikipedia] in [chicken scheme][call-cc].
 
